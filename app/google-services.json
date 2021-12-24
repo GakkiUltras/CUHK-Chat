@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "778317385012",
+    "project_id": "plenary-vim-331504",
+    "storage_bucket": "plenary-vim-331504.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:778317385012:android:031e26daf0dd5a0121e961",
+        "android_client_info": {
+          "package_name": "hk.edu.cuhk.ie.iems5722.a2_1155161730"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "778317385012-v8pqc35et7a17ab19voulhq0p7h8ut6d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxPdB3Wj3eFbzdlE90y72_riSkJg4qdWA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "778317385012-v8pqc35et7a17ab19voulhq0p7h8ut6d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:778317385012:android:e7597b88ae9a9e9521e961",
+        "android_client_info": {
+          "package_name": "hk.edu.cuhk.ie.iems5722.group7"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "778317385012-v8pqc35et7a17ab19voulhq0p7h8ut6d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxPdB3Wj3eFbzdlE90y72_riSkJg4qdWA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "778317385012-v8pqc35et7a17ab19voulhq0p7h8ut6d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="hk.edu.cuhk.ie.iems5722.group7">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/cuhk"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.HelloWorld"
+        android:usesCleartextTraffic="true">
+        <service
+            android:name="hk.edu.cuhk.ie.iems5722.group7.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name="hk.edu.cuhk.ie.iems5722.group7.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="hk.edu.cuhk.ie.iems5722.group7.chatview.ChatActivity"
+            android:exported="true"
+            android:parentActivityName="hk.edu.cuhk.ie.iems5722.group7.MainActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"> <!-- Don not focus on softkeyborad -->
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="hk.edu.cuhk.ie.iems5722.group7.MainActivity" />
+        </activity>
+    </application>
+
+</manifest>
