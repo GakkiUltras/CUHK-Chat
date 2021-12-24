@@ -1,1 +1,2 @@
 # CUHK-Chat
+Hi.
