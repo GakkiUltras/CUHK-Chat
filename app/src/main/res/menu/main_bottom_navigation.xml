@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_chats"
+        android:enabled="true"
+        android:icon="@android:drawable/stat_notify_chat"
+        android:title="Chats" />
+    <item
+        android:id="@+id/menu_friends"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_menu_my_calendar"
+        android:title="Friends" />
+    <item
+        android:id="@+id/menu_me"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_menu_myplaces"
+        android:title="Me" />
+
+</menu>
