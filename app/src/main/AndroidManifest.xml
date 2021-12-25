@@ -13,8 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HelloWorld"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".MainActivity2"
+            android:exported="true" />
+
         <service
-            android:name="hk.edu.cuhk.ie.iems5722.group7.MyFirebaseMessagingService"
+            android:name=".MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -22,7 +26,7 @@
         </service>
 
         <activity
-            android:name="hk.edu.cuhk.ie.iems5722.group7.MainActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,9 +35,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="hk.edu.cuhk.ie.iems5722.group7.chatview.ChatActivity"
+            android:name=".chatview.ChatActivity"
             android:exported="true"
-            android:parentActivityName="hk.edu.cuhk.ie.iems5722.group7.MainActivity"
+            android:parentActivityName=".MainActivity"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"> <!-- Don not focus on softkeyborad -->
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
