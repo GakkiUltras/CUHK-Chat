@@ -16,6 +16,12 @@
         <activity
             android:name=".MainActivity2"
             android:exported="true" />
+        <activity
+            android:name=".authentication.RegisterActivity"
+            android:exported="true" />
+        <activity
+            android:name=".authentication.LoginActivity"
+            android:exported="true" />
 
         <service
             android:name=".MyFirebaseMessagingService"

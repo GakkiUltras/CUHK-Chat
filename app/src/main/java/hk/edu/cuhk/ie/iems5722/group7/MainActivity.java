@@ -32,6 +32,7 @@ import hk.edu.cuhk.ie.iems5722.group7.chatview.ChatActivity;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
+    // testing
 
     ArrayList<HashMap<String,Object>> chatrooms;
     SimpleAdapter chatroomsAdapter;

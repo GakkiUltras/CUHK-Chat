@@ -26,10 +26,16 @@
         <entry key="..\:/Users/TianBowen/AndroidStudioProjects/HelloWorld/app/src/main/res/menu/main_bottom_navigation.xml" value="0.359375" />
         <entry key="..\:/Users/TianBowen/AndroidStudioProjects/HelloWorld/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.22" />
         <entry key="..\:/Users/TianBowen/AndroidStudioProjects/HelloWorld/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.21666666666666667" />
+        <entry key="..\:/document/CUHK/Mobile_pro/group7/client/CUHK-Chat/app/src/main/res/layout/activity_chat.xml" value="0.1" />
+        <entry key="..\:/document/CUHK/Mobile_pro/group7/client/CUHK-Chat/app/src/main/res/layout/activity_login.xml" value="0.1693840579710145" />
+        <entry key="..\:/document/CUHK/Mobile_pro/group7/client/CUHK-Chat/app/src/main/res/layout/activity_main.xml" value="0.12590579710144928" />
+        <entry key="..\:/document/CUHK/Mobile_pro/group7/client/CUHK-Chat/app/src/main/res/layout/activity_register.xml" value="0.16666666666666666" />
+        <entry key="..\:/document/CUHK/Mobile_pro/group7/client/CUHK-Chat/app/src/main/res/menu/chat.xml" value="0.1" />
+        <entry key="..\:/document/CUHK/Mobile_pro/group7/client/CUHK-Chat/app/src/main/res/menu/main.xml" value="0.1" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
