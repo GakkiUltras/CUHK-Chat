@@ -10,7 +10,11 @@
         <entry key="..\:/Users/TianBowen/AndroidStudioProjects/HelloWorld/app/src/main/res/drawable/shape_1011_10dp_corners.xml" value="0.259375" />
         <entry key="..\:/Users/TianBowen/AndroidStudioProjects/HelloWorld/app/src/main/res/layout/activity_chat.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/TianBowen/AndroidStudioProjects/HelloWorld/app/src/main/res/layout/activity_main.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/TianBowen/AndroidStudioProjects/HelloWorld/app/src/main/res/layout/activity_main2.xml" value="0.2803442028985507" />
         <entry key="..\:/Users/TianBowen/AndroidStudioProjects/HelloWorld/app/src/main/res/layout/fragment_blank.xml" value="0.23958333333333334" />
+        <entry key="..\:/Users/TianBowen/AndroidStudioProjects/HelloWorld/app/src/main/res/layout/fragment_chats_list.xml" value="0.359375" />
+        <entry key="..\:/Users/TianBowen/AndroidStudioProjects/HelloWorld/app/src/main/res/layout/fragment_friends_list.xml" value="0.359375" />
+        <entry key="..\:/Users/TianBowen/AndroidStudioProjects/HelloWorld/app/src/main/res/layout/fragment_me.xml" value="0.359375" />
         <entry key="..\:/Users/TianBowen/AndroidStudioProjects/HelloWorld/app/src/main/res/layout/item_chatroom.xml" value="0.2296195652173913" />
         <entry key="..\:/Users/TianBowen/AndroidStudioProjects/HelloWorld/app/src/main/res/layout/item_left_message.xml" value="0.2296195652173913" />
         <entry key="..\:/Users/TianBowen/AndroidStudioProjects/HelloWorld/app/src/main/res/layout/item_message.xml" value="0.4466666666666667" />
@@ -19,6 +23,7 @@
         <entry key="..\:/Users/TianBowen/AndroidStudioProjects/HelloWorld/app/src/main/res/layout/shape_0111_10dp_corners.xml" value="0.2341485507246377" />
         <entry key="..\:/Users/TianBowen/AndroidStudioProjects/HelloWorld/app/src/main/res/menu/chat.xml" value="0.26197916666666665" />
         <entry key="..\:/Users/TianBowen/AndroidStudioProjects/HelloWorld/app/src/main/res/menu/main.xml" value="0.359375" />
+        <entry key="..\:/Users/TianBowen/AndroidStudioProjects/HelloWorld/app/src/main/res/menu/main_bottom_navigation.xml" value="0.359375" />
         <entry key="..\:/Users/TianBowen/AndroidStudioProjects/HelloWorld/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.22" />
         <entry key="..\:/Users/TianBowen/AndroidStudioProjects/HelloWorld/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.21666666666666667" />
         <entry key="..\:/document/CUHK/Mobile_pro/group7/client/CUHK-Chat/app/src/main/res/layout/activity_chat.xml" value="0.1" />
