@@ -36,15 +36,14 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/banner_register" />
-
     <EditText
-        android:id="@+id/regist_age"
+        android:id="@+id/regist_userid"
         android:layout_width="380dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
-        android:hint="Age"
-        android:inputType="number"
+        android:hint="User ID (5 dits)"
+        android:inputType="text"
         android:textSize="24sp"
         app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -52,10 +51,24 @@
         app:layout_constraintTop_toBottomOf="@+id/regist_name" />
 
     <EditText
+        android:id="@+id/regist_age"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Age"
+        android:inputType="number"
+        android:textSize="24sp"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/regist_userid" />
+
+    <EditText
         android:id="@+id/email_register"
         android:layout_width="380dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"
@@ -69,7 +82,7 @@
         android:id="@+id/pwd_register"
         android:layout_width="380dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Email Address"
         android:inputType="textPassword"
@@ -83,7 +96,7 @@
         android:id="@+id/regist_user_button"
         android:layout_width="280dp"
         android:layout_height="70dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="20dp"
         android:backgroundTint="@color/login_background"
         android:text="@string/regist_user_button"
         android:textColor="@color/black"
