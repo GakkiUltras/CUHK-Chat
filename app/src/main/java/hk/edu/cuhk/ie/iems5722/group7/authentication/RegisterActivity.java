@@ -2,6 +2,8 @@ package hk.edu.cuhk.ie.iems5722.group7.authentication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import hk.edu.cuhk.ie.iems5722.group7.MainActivity;
 import hk.edu.cuhk.ie.iems5722.group7.R;
 import hk.edu.cuhk.ie.iems5722.group7.authentication.model.UserValidate;
 
@@ -143,6 +145,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                         Toast.makeText(RegisterActivity.this, "Welcome to join CUHK Chat!",Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
                                         // redirect to login layout
+                                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                                     }
                                     else{
                                         Toast.makeText(RegisterActivity.this, "Failed to register, try again with patience~ :)",Toast.LENGTH_LONG).show();
