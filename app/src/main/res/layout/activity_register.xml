@@ -43,7 +43,6 @@
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="User ID (5 dits)"
-        android:inputType="text"
         android:textSize="24sp"
         app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -84,13 +83,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:hint="Email Address"
+        android:hint="Password"
         android:inputType="textPassword"
         android:textSize="24sp"
         app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email_register" />
+
 
     <Button
         android:id="@+id/regist_user_button"
@@ -102,12 +102,10 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pwd_register" />
-
-
 
     <ProgressBar
         android:id="@+id/regist_progress_bar"

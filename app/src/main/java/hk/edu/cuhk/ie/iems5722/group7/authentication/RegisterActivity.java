@@ -83,7 +83,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         // age info is not empty
         if(age.isEmpty()){
             editTextAge.setError("How old are you?");
-            editTextUserName.requestFocus();
+            editTextAge.requestFocus();
             return;
         }
 
@@ -93,9 +93,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             editTextUserID.requestFocus();
             return;
         }
-        if(userID.length() == 5){
-            editTextEmail.setError("User ID shoud be 5 digits, please check.");
-            editTextEmail.requestFocus();
+        if(userID.length() != 5){
+            editTextUserID.setError("User ID shoud be 5 digits, please check.");
+            editTextUserID.requestFocus();
             return;
         }
 
@@ -130,17 +130,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         // if the information is validated in firebase authentication service
                         if(task.isSuccessful()){
+
                             UserValidate userValidate = new UserValidate(userName, userID, age, email);
-                            FirebaseDatabase.getInstance().getReference("Users")
-                                    // getCurrentUser.getUid can return the user ID from firebase database
+                            FirebaseDatabase.getInstance(getResources().getString(R.string.FBdatabaseURL)).getReference("Users")
+                                    // getCurrentUser.getUid can return the user ID from firebase authentication
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    // return a value to check if the user information is saved to firebase db successfully
+                                    // set value to firebase database
                                     .setValue(userValidate).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
+                                public void onComplete(@NonNull Task<Void> task_save_value) {
+                                    if(task_save_value.isSuccessful()){
                                         Toast.makeText(RegisterActivity.this, "Welcome to join CUHK Chat!",Toast.LENGTH_LONG).show();
-                                        progressBar.setVisibility(View.VISIBLE);
+                                        progressBar.setVisibility(View.GONE);
                                         // redirect to login layout
                                     }
                                     else{
