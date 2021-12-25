@@ -24,7 +24,7 @@
         tools:ignore="MissingConstraints" />
 
     <EditText
-        android:id="@+id/login_name"
+        android:id="@+id/regist_name"
         android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -38,7 +38,7 @@
         app:layout_constraintTop_toBottomOf="@+id/banner_register" />
 
     <EditText
-        android:id="@+id/age"
+        android:id="@+id/regist_age"
         android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
@@ -49,7 +49,7 @@
         app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_name" />
+        app:layout_constraintTop_toBottomOf="@+id/regist_name" />
 
     <EditText
         android:id="@+id/email_register"
@@ -63,7 +63,7 @@
         app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/age" />
+        app:layout_constraintTop_toBottomOf="@+id/regist_age" />
 
     <EditText
         android:id="@+id/pwd_register"
@@ -85,16 +85,19 @@
         android:layout_height="70dp"
         android:layout_marginTop="48dp"
         android:backgroundTint="@color/login_background"
+        android:text="@string/regist_user_button"
         android:textColor="@color/black"
-        android:textSize="26sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pwd_register" />
 
+
+
     <ProgressBar
-        android:id="@+id/login_progress_bar"
+        android:id="@+id/regist_progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="?android:attr/progressBarStyleLarge"
