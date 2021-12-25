@@ -14,7 +14,13 @@
     <string name="API_get_messages">http://34.92.204.198/api/a3/get_messages?chatroom_id=%d&amp;page=%d</string>
     <string name="API_get_chatrooms">http://34.92.204.198/api/a3/get_chatrooms</string>
     <string name="API_submit_push_token">http://34.92.204.198/api/a4/submit_push_token</string>
-
+    <string name="login_banner">CUHK CHAT</string>
+    <string name="register_button">Not a user? Come and register!</string>
+    <string name="sign_in_button">Sign In</string>
+    <string name="login_button">Log In</string>
+    <string name="regist_user_button">Register User Now!</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="success_register">Welcome to join CUHK Chat!</string>
+    <string name="FBdatabaseURL">https://plenary-vim-331504-default-rtdb.asia-southeast1.firebasedatabase.app</string>
 </resources>
