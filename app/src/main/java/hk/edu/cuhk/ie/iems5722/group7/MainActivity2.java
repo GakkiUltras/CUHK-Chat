@@ -10,6 +10,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
@@ -32,18 +33,37 @@ public class MainActivity2 extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private FirebaseAuth mauth;
     DatabaseReference mDatabaseReference;
+    DatabaseReference userInfoDatabaseReference;
     ArrayList<Fragment> fragments;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         //init FirebaseAuth
-        mauth=FirebaseAuth.getInstance();
+        mauth = FirebaseAuth.getInstance();
+        String user_name = "";
+        String user_id = "";
+        String age = "";
+        String email = "";
+
+        FirebaseUser user = mauth.getCurrentUser();
+        if (user!=null){
+            // The user object has basic properties such as display name, email, etc.
+            String uid = user.getUid();
+            //init the DatabseReference
+            userInfoDatabaseReference = FirebaseDatabase.getInstance().getReference();
+            user_id = returnDataFromFB("userID", uid, userInfoDatabaseReference);
+            user_name = returnDataFromFB("username", uid, userInfoDatabaseReference);
+            age = returnDataFromFB("age", uid, userInfoDatabaseReference);
+            email = returnDataFromFB("email", uid, userInfoDatabaseReference);
+
+        }
 
         fragments = new ArrayList<>();
+
         fragments.add(ChatsListFragment.newInstance());
         fragments.add(FriendsListFragment.newInstance("",""));
-        fragments.add(MeFragment.newInstance("",""));
+        fragments.add(MeFragment.newInstance(user_name,user_id, age, email));
         BottomNavigationView navigation = findViewById(R.id.bottomNavigationView);
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().add(R.id.fragment_container, fragments.get(0), "CHATS")
@@ -103,8 +123,7 @@ public class MainActivity2 extends AppCompatActivity {
                         Toast.makeText(MainActivity2.this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
-        //init the DatabseReference
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
+
     }
 
     //----SHOWING ALERT DIALOG FOR EXITING THE APP----
@@ -160,4 +179,23 @@ public class MainActivity2 extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+    // --Get data from firebase database--
+    private String returnDataFromFB(String dataAsked, String uid, DatabaseReference userInfoDatabaseReference){
+
+        String data = userInfoDatabaseReference.child("Users").child(uid).child(dataAsked).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                }
+            }
+
+        }).getResult().getValue().toString();
+        return data;
+    }
+
+
 }
