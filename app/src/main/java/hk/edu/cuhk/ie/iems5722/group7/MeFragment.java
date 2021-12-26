@@ -1,17 +1,25 @@
 package hk.edu.cuhk.ie.iems5722.group7;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import hk.edu.cuhk.ie.iems5722.group7.authentication.LoginActivity;
+import hk.edu.cuhk.ie.iems5722.group7.chatview.ChatActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,6 +42,12 @@ public class MeFragment extends Fragment {
     private String user_name;
     private String age;
     private String email;
+    private Button logout;
+    private TextView userID;
+    private TextView userName;
+    private TextView userAge;
+    private TextView userEmail;
+
 
     public MeFragment() {
         // Required empty public constructor
@@ -75,8 +89,33 @@ public class MeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState){
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_me, container, false);
+        View view= inflater.inflate(R.layout.fragment_me, container, false);
+        super.onCreate(savedInstanceState);
+        //setContentView(R.layout.activity_main);
+        initView(view);
+        // Inflate the layout for this fragment
+        return view;
     }
+    private void initView(View view){
+        logout = view.findViewById(R.id.logout_button);
+        logout.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getActivity(), LoginActivity.class));
+            }
+        });
+        userID = view.findViewById(R.id.profile_ID);
+        userName = view.findViewById(R.id.profile_Name);
+        userAge = view.findViewById(R.id.profile_Age);
+        userEmail = view.findViewById(R.id.profile_email);
+        // set textview
+        userID.setText(user_id);
+        userName.setText(user_name);
+        userAge.setText(age);
+        userEmail.setText(email);
+    }
+
 }
