@@ -64,8 +64,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         editTextPwd = (EditText) findViewById(R.id.pwd_register);
         // the spinning indicating it's loading
         progressBar = (ProgressBar) findViewById(R.id.regist_progress_bar);
-
-
     }
 
     @Override

@@ -37,6 +37,7 @@ public class MeFragment extends Fragment {
      * @return A new instance of fragment MeFragment.
      */
     // TODO: Rename and change types and number of parameters
+    // get userID from mainActivity
     public static MeFragment newInstance(String param1, String param2) {
         MeFragment fragment = new MeFragment();
         Bundle args = new Bundle();
