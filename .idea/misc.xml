@@ -3,9 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/document/CUHK/Mobile_pro/group7/client/CUHK-Chat/app/src/main/res/layout/fragment_me.xml" value="0.13229166666666667" />
+        <entry key="..\:/document/CUHK/Mobile_pro/group7/client/CUHK-Chat/app/src/main/res/layout/activity_chat.xml" value="0.16354166666666667" />
+        <entry key="..\:/document/CUHK/Mobile_pro/group7/client/CUHK-Chat/app/src/main/res/layout/fragment_me.xml" value="0.22" />
         <entry key="..\:/document/CUHK/Mobile_pro/group7/client/CUHK-Chat/app/src/main/res/layout/item_chatroom.xml" value="0.13229166666666667" />
+        <entry key="..\:/document/CUHK/Mobile_pro/group7/client/CUHK-Chat/app/src/main/res/layout/item_left_message.xml" value="0.16354166666666667" />
+        <entry key="..\:/document/CUHK/Mobile_pro/group7/client/CUHK-Chat/app/src/main/res/layout/item_right_message.xml" value="0.16354166666666667" />
       </map>
     </option>
   </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>
