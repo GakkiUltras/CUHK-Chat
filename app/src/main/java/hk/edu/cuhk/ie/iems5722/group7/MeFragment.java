@@ -93,18 +93,22 @@ public class MeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_me, container, false);
         super.onCreate(savedInstanceState);
+
         //setContentView(R.layout.activity_main);
         initView(view);
         // Inflate the layout for this fragment
         return view;
     }
     private void initView(View view){
-        logout = view.findViewById(R.id.logout_button);
+        logout = view.findViewById(R.id.signout_button);
         logout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getActivity(), LoginActivity.class));
+                switch (v.getId()){
+                    case R.id.signout_button:
+                        FirebaseAuth.getInstance().signOut();
+                        startActivity(new Intent(getActivity(), LoginActivity.class));
+                }
             }
         });
         userID = view.findViewById(R.id.profile_ID);
@@ -112,7 +116,7 @@ public class MeFragment extends Fragment {
         userAge = view.findViewById(R.id.profile_Age);
         userEmail = view.findViewById(R.id.profile_email);
         // set textview
-        userID.setText(user_id);
+        userID.setText(Integer.toString(user_id));
         userName.setText(user_name);
         userAge.setText(age);
         userEmail.setText(email);

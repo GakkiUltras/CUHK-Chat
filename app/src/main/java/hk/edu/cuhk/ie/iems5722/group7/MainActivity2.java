@@ -52,11 +52,11 @@ public class MainActivity2 extends AppCompatActivity {
             String uid = user.getUid();
             //init the DatabseReference
             userInfoDatabaseReference = FirebaseDatabase.getInstance().getReference();
-            String s_user_id = returnDataFromFB("userID", uid, userInfoDatabaseReference);
-            user_id = Integer.parseInt(s_user_id);
-            user_name = returnDataFromFB("username", uid, userInfoDatabaseReference);
-            age = returnDataFromFB("age", uid, userInfoDatabaseReference);
-            email = returnDataFromFB("email", uid, userInfoDatabaseReference);
+//            String s_user_id = returnDataFromFB("userID", uid, userInfoDatabaseReference);
+//            user_id = Integer.parseInt(s_user_id);
+//            user_name = returnDataFromFB("username", uid, userInfoDatabaseReference);
+//            age = returnDataFromFB("age", uid, userInfoDatabaseReference);
+//            email = returnDataFromFB("email", uid, userInfoDatabaseReference);
 
         }
 
@@ -124,6 +124,8 @@ public class MainActivity2 extends AppCompatActivity {
                         Toast.makeText(MainActivity2.this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
+        //init the DatabseReference
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
 
     }
 
