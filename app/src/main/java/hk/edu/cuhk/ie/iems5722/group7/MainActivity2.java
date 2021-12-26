@@ -31,11 +31,13 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import hk.edu.cuhk.ie.iems5722.group7.authentication.LoginActivity;
+import hk.edu.cuhk.ie.iems5722.group7.authentication.model.UserValidate;
 
 public class MainActivity2 extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     private FirebaseAuth mauth;
+    private UserValidate userInfo;
     DatabaseReference mDatabaseReference;
     DatabaseReference userInfoDatabaseReference;
     ArrayList<Fragment> fragments;
@@ -49,6 +51,7 @@ public class MainActivity2 extends AppCompatActivity {
         int user_id = 0;
         String age = "";
         String email = "";
+
         // list to store the data
 
         FirebaseUser user = mauth.getCurrentUser();
@@ -57,11 +60,12 @@ public class MainActivity2 extends AppCompatActivity {
             String uid = user.getUid();
 
             //init the DatabseReference
-            userInfoDatabaseReference = FirebaseDatabase.getInstance(getResources().getString(R.string.FBdatabaseURL)).getReference();
+//            userInfoDatabaseReference = FirebaseDatabase.getInstance(getResources().getString(R.string.FBdatabaseURL)).getReference();
             // get data from firebase database
 
 // todo use get()
 
+//            userInfoDatabaseReference = FirebaseDatabase.getInstance(getResources().getString(R.string.FBdatabaseURL)).getReference();
 //            String s_user_id = returnDataFromFB("userID", uid, userInfoDatabaseReference);
 //            user_id = Integer.parseInt(s_user_id);
 //            user_name = returnDataFromFB("username", uid, userInfoDatabaseReference);
@@ -69,18 +73,19 @@ public class MainActivity2 extends AppCompatActivity {
 //            email = returnDataFromFB("email", uid, userInfoDatabaseReference);
 
             //todo use getValue
-
+            userInfoDatabaseReference = FirebaseDatabase.getInstance(getResources().getString(R.string.FBdatabaseURL)).getReference("Users");
 //            ArrayList<String> dataListNew = returnListFromFB(uid, userInfoDatabaseReference);
             final ArrayList<String> dataListNew = new ArrayList<>();
-            userInfoDatabaseReference.child("Users").child(uid).addValueEventListener(new ValueEventListener() {
+            userInfoDatabaseReference.addValueEventListener(new ValueEventListener() {
 
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren() ){
                         dataListNew.add(snapshot.getValue().toString());
+                        userInfo = snapshot.getValue(UserValidate.class);
                         Log.e(TAG, "add data");
                     }
-                    Log.e(TAG, "This is the end of data List record."+dataListNew.get(0)+","+dataListNew.get(3));
+//                    Log.e(TAG, "This is the end of data List record."+dataListNew.get(0)+","+dataListNew.get(3));
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
@@ -94,7 +99,9 @@ public class MainActivity2 extends AppCompatActivity {
                 age = dataListNew.get(2);
                 email = dataListNew.get(3);
             }
-            else{Log.e(TAG, "Error in add value event listener!");}
+            else{Log.e(TAG, "Error in add value event listener! Except");
+//            user_id = userInfo.getUserID();
+            }
         }
 
         fragments = new ArrayList<>();
@@ -165,6 +172,8 @@ public class MainActivity2 extends AppCompatActivity {
         mDatabaseReference = FirebaseDatabase.getInstance(getResources().getString(R.string.FBdatabaseURL)).getReference().child("Users");
 
     }
+
+
 
     //----SHOWING ALERT DIALOG FOR EXITING THE APP----
     @Override

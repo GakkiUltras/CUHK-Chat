@@ -175,6 +175,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         }
                     }
                 });
+        
     }
 
     // send user data also to remote server also, but don't save password on the server
