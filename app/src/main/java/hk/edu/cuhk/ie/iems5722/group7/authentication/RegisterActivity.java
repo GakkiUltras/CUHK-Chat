@@ -3,12 +3,15 @@ package hk.edu.cuhk.ie.iems5722.group7.authentication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import hk.edu.cuhk.ie.iems5722.group7.CustomRequest;
 import hk.edu.cuhk.ie.iems5722.group7.MainActivity;
 import hk.edu.cuhk.ie.iems5722.group7.R;
+import hk.edu.cuhk.ie.iems5722.group7.VolleyController;
 import hk.edu.cuhk.ie.iems5722.group7.authentication.model.UserValidate;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -17,17 +20,26 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView banner, registerUser;
     private EditText editTextUserName,editTextUserID, editTextAge, editTextEmail, editTextPwd;
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
+    private String TAG = "RegisterActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,19 +76,27 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 startActivity(new Intent(this, LoginActivity.class));
                 break;
             case R.id.regist_user_button:
-                // register action
-                registerUser();
+                String email = editTextEmail.getText().toString().trim();
+                String password = editTextPwd.getText().toString().trim();
+                String userID = editTextUserID.getText().toString().trim();
+                String userName = editTextUserName.getText().toString().trim();
+                String age = editTextAge.getText().toString().trim();
+                // register action, safe to use firebase
+                registerUser(email, password, userID, userName, age);
+                // send user data also to remote server also, but don't save password on the server
+                postUserToServer(getResources().getString(R.string.API_send_userInfo),email,userID, userName, age);
+                // redirect to login activity
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                 break;
 
         }
     }
 
-    private void registerUser(){
-        String email = editTextEmail.getText().toString().trim();
-        String password = editTextPwd.getText().toString().trim();
-        String userID = editTextUserID.getText().toString().trim();
-        String userName = editTextUserName.getText().toString().trim();
-        String age = editTextAge.getText().toString().trim();
+
+
+    // register the user on firebase
+    private void registerUser(String email, String password, String userID, String userName, String age){
+
         if(userName.isEmpty()){
             editTextUserName.setError("User name is required!");
             editTextUserName.requestFocus();
@@ -126,6 +146,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             return;
         }
         progressBar.setVisibility(View.VISIBLE);
+
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -144,8 +165,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                     if(task_save_value.isSuccessful()){
                                         Toast.makeText(RegisterActivity.this, "Welcome to join CUHK Chat!",Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
-                                        // redirect to login layout
-                                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+
                                     }
                                     else{
                                         Toast.makeText(RegisterActivity.this, "Failed to register, try again with patience~ :)",Toast.LENGTH_LONG).show();
@@ -157,8 +177,36 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         }
                     }
                 });
-
-
-
     }
+
+    // send user data also to remote server also, but don't save password on the server
+    private void postUserToServer(String url,String email, String userID, String userName, String age){
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("user_id", userID);
+        params.put("user_name", userName);
+        params.put("age", age);
+        params.put("email", email);
+        CustomRequest jsObjRequest = new CustomRequest(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    if (response.getString("status").equals("OK")) {
+                        Log.i(TAG, "User Information send.");
+                    } else {
+                        Log.d(TAG, "status==Error");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, error.getMessage(), error);
+            }
+        });
+        VolleyController.getInstance(this).addToRequestQueue(jsObjRequest);
+    }
+
+
 }
