@@ -42,7 +42,7 @@ public class MainActivity2 extends AppCompatActivity {
         //init FirebaseAuth
         mauth = FirebaseAuth.getInstance();
         String user_name = "";
-        String user_id = "";
+        int user_id = 0;
         String age = "";
         String email = "";
 
@@ -52,7 +52,8 @@ public class MainActivity2 extends AppCompatActivity {
             String uid = user.getUid();
             //init the DatabseReference
             userInfoDatabaseReference = FirebaseDatabase.getInstance().getReference();
-            user_id = returnDataFromFB("userID", uid, userInfoDatabaseReference);
+            String s_user_id = returnDataFromFB("userID", uid, userInfoDatabaseReference);
+            user_id = Integer.parseInt(s_user_id);
             user_name = returnDataFromFB("username", uid, userInfoDatabaseReference);
             age = returnDataFromFB("age", uid, userInfoDatabaseReference);
             email = returnDataFromFB("email", uid, userInfoDatabaseReference);
@@ -63,7 +64,7 @@ public class MainActivity2 extends AppCompatActivity {
 
         fragments.add(ChatsListFragment.newInstance());
         fragments.add(FriendsListFragment.newInstance("",""));
-        fragments.add(MeFragment.newInstance(user_name,user_id, age, email));
+        fragments.add(MeFragment.newInstance(user_id,user_name, age, email));
         BottomNavigationView navigation = findViewById(R.id.bottomNavigationView);
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().add(R.id.fragment_container, fragments.get(0), "CHATS")

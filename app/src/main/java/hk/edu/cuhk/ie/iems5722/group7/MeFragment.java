@@ -22,18 +22,18 @@ public class MeFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private static final String ARG_PARAM3 = "param3";
-    private static final String ARG_PARAM4 = "param4";
+    private static final String ARG_PARAM1 = "user_id";
+    private static final String ARG_PARAM2 = "user_name";
+    private static final String ARG_PARAM3 = "age";
+    private static final String ARG_PARAM4 = "email";
 
     // get information of current user
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-    private String mParam3;
-    private String mParam4;
+    private int user_id;
+    private String user_name;
+    private String age;
+    private String email;
 
     public MeFragment() {
         // Required empty public constructor
@@ -43,21 +43,21 @@ public class MeFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @param param1 Parameter 3.
-     * @param param1 Parameter 4.
+     * @param user_id Parameter 1.
+     * @param user_name Parameter 2.
+     * @param age Parameter 3.
+     * @param email Parameter 4.
      * @return A new instance of fragment MeFragment.
      */
     // TODO: Rename and change types and number of parameters
     // get userID from mainActivity
-    public static MeFragment newInstance(String param1, String param2, String param3, String param4) {
+    public static MeFragment newInstance(int user_id, String user_name, String age, String email) {
         MeFragment fragment = new MeFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        args.putString(ARG_PARAM3, param3);
-        args.putString(ARG_PARAM4, param4);
+        args.putInt(ARG_PARAM1, user_id);
+        args.putString(ARG_PARAM2, user_name);
+        args.putString(ARG_PARAM3, age);
+        args.putString(ARG_PARAM4, email);
         fragment.setArguments(args);
         return fragment;
     }
@@ -66,8 +66,10 @@ public class MeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            user_id = getArguments().getInt(ARG_PARAM1);
+            user_name = getArguments().getString(ARG_PARAM2);
+            age = getArguments().getString(ARG_PARAM3);
+            email = getArguments().getString(ARG_PARAM4);
         }
     }
 
