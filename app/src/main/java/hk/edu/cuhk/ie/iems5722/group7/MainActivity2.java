@@ -71,7 +71,13 @@ public class MainActivity2 extends AppCompatActivity {
         fragments.add(ChatsListFragment.newInstance());
         fragments.add(FriendsListFragment.newInstance("",""));
 //        fragments.add(MeFragment.newInstance(user_id,user_name, age, email));
-        fragments.add(MeFragment.newInstance(11551,"Jaden", "18", "qjddyx@gmail.com",user.getUid()));
+        try{
+            fragments.add(MeFragment.newInstance(11551,"Jaden", "18", "qjddyx@gmail.com",user.getUid()));
+        }
+        catch (NullPointerException e){
+            fragments.add(MeFragment.newInstance(11551,"Jaden", "18", "qjddyx@gmail.com","Oc8qy6AjaeYF3QiEba2QpZ4PcVX2"));
+        }
+
         BottomNavigationView navigation = findViewById(R.id.bottomNavigationView);
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().add(R.id.fragment_container, fragments.get(0), "CHATS")
