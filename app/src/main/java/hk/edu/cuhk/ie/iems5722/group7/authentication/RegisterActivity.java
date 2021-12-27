@@ -81,8 +81,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 String age = editTextAge.getText().toString().trim();
                 // register action, safe to use firebase
                 registerUser(email, password, userID, userName, age);
+//                String uid = mAuth.getUid();
                 // send user data also to remote server also, but don't save password on the server
-                postUserToServer(getResources().getString(R.string.API_send_userInfo),email,userID, userName, age);
+//                postUserToServer(getResources().getString(R.string.API_send_userInfo),uid,email,userID, userName, age);
                 // redirect to login activity
                 startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                 break;
@@ -144,14 +145,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             return;
         }
         progressBar.setVisibility(View.VISIBLE);
-
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         // if the information is validated in firebase authentication service
                         if(task.isSuccessful()){
-
+                            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                            // send user data also to remote server also, but don't save password on the server
+                            postUserToServer(getResources().getString(R.string.API_send_userInfo),uid,email,userID, userName, age);
                             UserValidate userValidate = new UserValidate(userName, userID, age, email);
                             FirebaseDatabase.getInstance(getResources().getString(R.string.FBdatabaseURL)).getReference("Users")
                                     // getCurrentUser.getUid can return the user ID from firebase authentication
@@ -175,12 +177,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         }
                     }
                 });
-        
     }
 
     // send user data also to remote server also, but don't save password on the server
-    private void postUserToServer(String url,String email, String userID, String userName, String age){
+    private void postUserToServer(String url, String uid, String email, String userID, String userName, String age){
         HashMap<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
         params.put("user_id", userID);
         params.put("user_name", userName);
         params.put("age", age);
