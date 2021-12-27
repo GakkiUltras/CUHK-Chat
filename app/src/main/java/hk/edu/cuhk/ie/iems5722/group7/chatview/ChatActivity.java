@@ -80,13 +80,7 @@ public class ChatActivity extends AppCompatActivity {
         this.listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScroll(AbsListView viewint, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                // Your code here
-//                if (listView.getFirstVisiblePosition()==0&&currentPage<totalPages){
-//                    getMessages(url,roomID,currentPage+1);
-//                }
-//                else if(firstVisibleItem==0&&visibleItemCount==totalItemCount){
-//
-//                }
+
             }
 
             @Override
@@ -224,17 +218,6 @@ public class ChatActivity extends AppCompatActivity {
             this.listView.setAdapter(adapter);
         }
     }
-
-
-//    public void sendMessage(View view) {
-//        String content = editText.getText().toString();
-//        if (!content.isEmpty()) {
-////            adapter.add(new ChatMessage(content,"bot",new Date(),23132));
-//            postMessage(this.urlPostMessage, new ChatMessage(content, "bot", new Date(), 1155161730));
-//            editText.setText("");
-////            adapter.add(new ChatMessage(content,new Date(),ChatMessage.RECEIVE));
-//        }
-//    }
 
     public void sendMessageUnit(String user_name, String user_id) {
         String content = editText.getText().toString();
