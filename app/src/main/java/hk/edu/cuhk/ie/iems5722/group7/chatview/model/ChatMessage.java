@@ -22,6 +22,7 @@ public class ChatMessage {
     public String timeFormat="yyyy-MM-dd HH:mm";
 
 
+
     public ChatMessage(String content,String name, Date date, int userID) {
         this.content = content;
         this.name=name;

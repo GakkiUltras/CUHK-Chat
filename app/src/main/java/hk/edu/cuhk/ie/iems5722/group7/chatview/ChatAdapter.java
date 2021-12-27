@@ -18,6 +18,7 @@ import hk.edu.cuhk.ie.iems5722.group7.chatview.model.ChatMessage;
 public class ChatAdapter extends ArrayAdapter<ChatMessage> {
 
     private LayoutInflater mInflater;
+    private int localID;
 
     // View lookup cache
     private static class SentMsgViewHolder {
@@ -45,13 +46,22 @@ public class ChatAdapter extends ArrayAdapter<ChatMessage> {
     }
 
     public ChatAdapter(Context context, ArrayList<ChatMessage> messages) {
+
         super(context, 0, messages);
         mInflater = LayoutInflater.from(context);
+        this.localID = 115516;
+    }
+
+    public void setLocalID(int localID){
+        this.localID = localID;
+    }
+    public int getlocalID(){
+        return localID;
     }
 
     @Override
     public int getItemViewType(int position) {
-        return getItem(position).getType(1155161730);
+        return getItem(position).getType(this.localID);
     }
 
     @Override
@@ -67,22 +77,6 @@ public class ChatAdapter extends ArrayAdapter<ChatMessage> {
         // Check if an existing view is being reused, otherwise inflate the view
         RecvMsgViewHolder recvMsgViewHolder;
         SentMsgViewHolder sentMsgViewHolder; // view lookup cache stored in tag
-//        if (convertView==null){
-//            viewHolder=new ViewHolder();
-//            LayoutInflater inflater=LayoutInflater.from(getContext());
-//            convertView=inflater.inflate(R.layout.item_right_message,parent,false);
-//            viewHolder.content=(TextView) convertView.findViewById(R.id.right_content);
-//            viewHolder.date=(TextView) convertView.findViewById(R.id.right_date);
-//            convertView.setTag(viewHolder);
-//        }
-//        else {
-//            // View is being recycled, retrieve the viewHolder object from tag
-//            viewHolder = (ViewHolder) convertView.getTag();
-//        }
-//        viewHolder.content.setText(chatMessage.content);
-//        SimpleDateFormat ft = new SimpleDateFormat("HH:MM");
-//        viewHolder.date.setText(ft.format(chatMessage.date));
-//        return convertView;
 
         if (getItemViewType(position) == ChatMessage.SEND) {
             return handleGetSentMsgView(position, convertView, parent);
@@ -91,7 +85,6 @@ public class ChatAdapter extends ArrayAdapter<ChatMessage> {
         } else {
             return null;
         }
-//        return handleGetRecvMsgView(position,convertView,parent);
     }
 
     @Override

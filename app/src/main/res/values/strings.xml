@@ -15,11 +15,12 @@
     <string name="API_get_chatrooms">http://34.92.204.198/api/a3/get_chatrooms</string>
     <string name="API_submit_push_token">http://34.92.204.198/api/a4/submit_push_token</string>
     <string name="API_send_userInfo">http://34.92.204.198/api/a3/send_userInfo</string>
-    <string name="API_get_userInfo">http://34.92.204.198/api/a3/get_userInfo</string>
+    <string name="API_get_userInfo">http://34.92.204.198/api/a3/get_userInfo?uid=%s</string>
     <string name="login_banner">CUHK CHAT</string>
     <string name="register_button">Not a user? Come and register!</string>
     <string name="sign_in_button">Sign In</string>
     <string name="login_button">Log In</string>
+    <string name="logout_button">Log Out</string>
     <string name="regist_user_button">Register User Now!</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
