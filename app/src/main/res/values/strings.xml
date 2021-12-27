@@ -15,7 +15,7 @@
     <string name="API_get_chatrooms">http://34.92.204.198/api/a3/get_chatrooms</string>
     <string name="API_submit_push_token">http://34.92.204.198/api/a4/submit_push_token</string>
     <string name="API_send_userInfo">http://34.92.204.198/api/a3/send_userInfo</string>
-    <string name="API_get_userInfo">http://34.92.204.198/api/a3/get_userInfo</string>
+    <string name="API_get_userInfo">http://34.92.204.198/api/a3/get_userInfo?uid=%s</string>
     <string name="login_banner">CUHK CHAT</string>
     <string name="register_button">Not a user? Come and register!</string>
     <string name="sign_in_button">Sign In</string>

@@ -6,6 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,14 +28,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import hk.edu.cuhk.ie.iems5722.group7.authentication.LoginActivity;
 import hk.edu.cuhk.ie.iems5722.group7.authentication.model.UserValidate;
@@ -41,12 +54,17 @@ public class MainActivity2 extends AppCompatActivity {
     DatabaseReference mDatabaseReference;
     DatabaseReference userInfoDatabaseReference;
     ArrayList<Fragment> fragments;
+
+    SimpleAdapter userInfoAdapter;
+    private RequestQueue userInfoQueue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         //init FirebaseAuth
+        ArrayList<HashMap<String,Object>> userInfos;
         mauth = FirebaseAuth.getInstance();
+        userInfos = new ArrayList<HashMap<String,Object>>();
         String user_name = "";
         int user_id = 0;
         String age = "";
@@ -55,15 +73,18 @@ public class MainActivity2 extends AppCompatActivity {
         // list to store the data
 
         FirebaseUser user = mauth.getCurrentUser();
+        userInfoQueue = Volley.newRequestQueue(this);
         if (user!=null){
             // The user object has basic properties such as display name, email, etc.
-            String uid = user.getUid();
+            // todo 1. use Volley
+//            String uid = user.getUid();
+//            getUserInfo(userInfos, uid);
 
             //init the DatabseReference
 //            userInfoDatabaseReference = FirebaseDatabase.getInstance(getResources().getString(R.string.FBdatabaseURL)).getReference();
             // get data from firebase database
 
-// todo use get()
+             // todo 2. use firebase Database - get()
 
 //            userInfoDatabaseReference = FirebaseDatabase.getInstance(getResources().getString(R.string.FBdatabaseURL)).getReference();
 //            String s_user_id = returnDataFromFB("userID", uid, userInfoDatabaseReference);
@@ -72,43 +93,45 @@ public class MainActivity2 extends AppCompatActivity {
 //            age = returnDataFromFB("age", uid, userInfoDatabaseReference);
 //            email = returnDataFromFB("email", uid, userInfoDatabaseReference);
 
-            //todo use getValue
-            userInfoDatabaseReference = FirebaseDatabase.getInstance(getResources().getString(R.string.FBdatabaseURL)).getReference("Users");
-//            ArrayList<String> dataListNew = returnListFromFB(uid, userInfoDatabaseReference);
-            final ArrayList<String> dataListNew = new ArrayList<>();
-            userInfoDatabaseReference.addValueEventListener(new ValueEventListener() {
+//            //todo 3. use getValue in firebase database
+//            userInfoDatabaseReference = FirebaseDatabase.getInstance(getResources().getString(R.string.FBdatabaseURL)).getReference("Users");
+////            ArrayList<String> dataListNew = returnListFromFB(uid, userInfoDatabaseReference);
+//            final ArrayList<String> dataListNew = new ArrayList<>();
+//            userInfoDatabaseReference.addValueEventListener(new ValueEventListener() {
+//
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                    for (DataSnapshot snapshot : dataSnapshot.getChildren() ){
+//                        dataListNew.add(snapshot.getValue().toString());
+//                        userInfo = snapshot.getValue(UserValidate.class);
+//                        Log.e(TAG, "add data");
+//                    }
+////                    Log.e(TAG, "This is the end of data List record."+dataListNew.get(0)+","+dataListNew.get(3));
+//                }
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError error) {
+//                }
+//            });
 
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren() ){
-                        dataListNew.add(snapshot.getValue().toString());
-                        userInfo = snapshot.getValue(UserValidate.class);
-                        Log.e(TAG, "add data");
-                    }
-//                    Log.e(TAG, "This is the end of data List record."+dataListNew.get(0)+","+dataListNew.get(3));
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                }
-            });
-
-            int listSize = dataListNew.size();
-            if(listSize > 0){
-                user_id = Integer.parseInt(dataListNew.get(0));
-                user_name = dataListNew.get(1);
-                age = dataListNew.get(2);
-                email = dataListNew.get(3);
-            }
-            else{Log.e(TAG, "Error in add value event listener! Except");
-//            user_id = userInfo.getUserID();
-            }
+            int listSize = userInfos.size();
+            Log.i(TAG,"list Size is :");
+//            if(listSize > 0){
+//                user_id = Integer.parseInt(dataListNew.get(0));
+//                user_name = dataListNew.get(1);
+//                age = dataListNew.get(2);
+//                email = dataListNew.get(3);
+//            }
+//            else{Log.e(TAG, "Error in add value event listener! Except");
+////            user_id = userInfo.getUserID();
+//            }
         }
 
         fragments = new ArrayList<>();
 
         fragments.add(ChatsListFragment.newInstance());
         fragments.add(FriendsListFragment.newInstance("",""));
-        fragments.add(MeFragment.newInstance(user_id,user_name, age, email));
+//        fragments.add(MeFragment.newInstance(user_id,user_name, age, email));
+        fragments.add(MeFragment.newInstance(11551,"Jaden", "18", "qjddyx@gmail.com",user.getUid()));
         BottomNavigationView navigation = findViewById(R.id.bottomNavigationView);
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().add(R.id.fragment_container, fragments.get(0), "CHATS")
@@ -228,7 +251,10 @@ public class MainActivity2 extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-    // --Get data from firebase database--
+
+
+
+    // --Get data from firebase database uing get()--
     private String returnDataFromFB(String dataAsked, String uid, DatabaseReference userInfoDatabaseReference){
         final ArrayList<String> list = new ArrayList<>();
         final String output = "";
@@ -252,7 +278,7 @@ public class MainActivity2 extends AppCompatActivity {
             return "0";
         }
     }
-//
+// get data from firebase using getValue()
     private ArrayList returnListFromFB(String uid, DatabaseReference userInfoDatabaseReference){
         final ArrayList<String> dataList = new ArrayList<>();
         userInfoDatabaseReference.child("Users").child(uid).addValueEventListener(new ValueEventListener() {
@@ -271,6 +297,46 @@ public class MainActivity2 extends AppCompatActivity {
         });
         return dataList;
     }
+
+    // get data from database using volley
+    public void getUserInfo(ArrayList userInfos, String uid){
+        String urlGetUserInfo = String.format(getString(R.string.API_get_userInfo), uid);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, urlGetUserInfo, null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            if (response.getString("status").equals("OK")){
+//                                Log.d(TAG,response.toString());
+                                JSONArray jsonArray=response.getJSONArray("data");
+                                for (int i=0;i<jsonArray.length();i++){
+                                    JSONObject jsonObject=jsonArray.getJSONObject(i);
+                                    HashMap<String,Object> userInfo=new HashMap<String,Object>();
+                                    userInfo.put("user_id",jsonObject.getString("user_id"));
+                                    userInfo.put("user_name",jsonObject.getString("user_name"));
+                                    userInfo.put("age",jsonObject.getString("age"));
+                                    userInfo.put("email",jsonObject.getString("email"));
+                                    userInfos.add(userInfo);
+                                }
+                            }
+                            else {
+                                Log.d(TAG,response.toString());
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+                        Log.e(TAG,error.getMessage(),error);
+                    }
+                });
+        userInfoQueue.add(jsonObjectRequest);
+    }
+
 
 
 }

@@ -15,9 +15,13 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,13 +49,15 @@ public class ChatActivity extends AppCompatActivity {
     private int currentPage;
     private String urlGetMessages;
     private String urlPostMessage;
+    private RequestQueue mQueue, mQueue2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-
-
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        mQueue = Volley.newRequestQueue(this);
+        mQueue2 = Volley.newRequestQueue(this);
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -65,6 +71,7 @@ public class ChatActivity extends AppCompatActivity {
 
         this.messages = new ArrayList<ChatMessage>();
         this.adapter = new ChatAdapter(this, messages);
+        addLocalID(this.adapter);
         this.editText = (EditText) findViewById(R.id.editTextMessage);
         this.listView = (ListView) findViewById(R.id.messages);
         this.listView.setAdapter(adapter);
@@ -128,7 +135,9 @@ public class ChatActivity extends AppCompatActivity {
                                 JSONArray jsonMessages = jsonData.getJSONArray("messages");
                                 if (page == 1) {
                                     if (adapter == null) {
+                                        // todo: add localID for each adapter
                                         adapter = new ChatAdapter(ChatActivity.this, messages);
+                                        addLocalID(adapter);
                                     } else {
                                         if (adapter.isEmpty()) {
 
@@ -182,27 +191,6 @@ public class ChatActivity extends AppCompatActivity {
         params.put("name", message.getName());
         params.put("message", message.getContent());
 
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                try {
-//                    if (response.getString("status").equals("OK")) {
-//                        adapter.add(message);
-//                        listView.setSelection(adapter.getCount() - 1);
-//                    }
-//                    else {
-//                        Log.d(TAG,"status==Error");
-//                    }
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Log.e(TAG, error.getMessage(), error);
-//            }
-//        });
         CustomRequest jsObjRequest = new CustomRequest(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -232,19 +220,114 @@ public class ChatActivity extends AppCompatActivity {
             this.adapter.notifyDataSetChanged();
         } else {
             this.adapter = new ChatAdapter(this, messages);
+            addLocalID(this.adapter);
             this.listView.setAdapter(adapter);
         }
     }
 
 
-    public void sendMessage(View view) {
+//    public void sendMessage(View view) {
+//        String content = editText.getText().toString();
+//        if (!content.isEmpty()) {
+////            adapter.add(new ChatMessage(content,"bot",new Date(),23132));
+//            postMessage(this.urlPostMessage, new ChatMessage(content, "bot", new Date(), 1155161730));
+//            editText.setText("");
+////            adapter.add(new ChatMessage(content,new Date(),ChatMessage.RECEIVE));
+//        }
+//    }
+
+    public void sendMessageUnit(String user_name, String user_id) {
         String content = editText.getText().toString();
         if (!content.isEmpty()) {
 //            adapter.add(new ChatMessage(content,"bot",new Date(),23132));
-            postMessage(this.urlPostMessage, new ChatMessage(content, "bot", new Date(), 1155161730));
+            postMessage(this.urlPostMessage, new ChatMessage(content, user_name, new Date(), Integer.parseInt(user_id)));
             editText.setText("");
 //            adapter.add(new ChatMessage(content,new Date(),ChatMessage.RECEIVE));
         }
     }
+
+
+    public void sendMessage(View view){
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String urlGetUserInfo = String.format(getString(R.string.API_get_userInfo), uid);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, urlGetUserInfo, null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            if (response.getString("status").equals("OK")){
+//                                Log.d(TAG,response.toString());
+                                JSONArray jsonArray=response.getJSONArray("data");
+                                Log.e(TAG, "get the data");
+                                for (int i=0;i<jsonArray.length();i++){
+                                    JSONObject jsonObject=jsonArray.getJSONObject(i);
+                                    // send with current user information
+                                    sendMessageUnit(jsonObject.getString("user_name"),jsonObject.getString("user_id"));
+                                    Log.e(TAG, "set the informations");
+                                }
+                            }
+                            else {
+                                Log.e(TAG,response.toString());
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+                        Log.e(TAG,error.getMessage(),error);
+                    }
+                });
+        mQueue.add(jsonObjectRequest);
+    }
+
+
+    // todo: add localID for each adapter
+    public void addLocalID(ChatAdapter adapter){
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String urlGetUserInfo = String.format(getString(R.string.API_get_userInfo), uid);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, urlGetUserInfo, null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            if (response.getString("status").equals("OK")){
+//                                Log.d(TAG,response.toString());
+                                JSONArray jsonArray=response.getJSONArray("data");
+                                Log.e(TAG, "get the data");
+                                for (int i=0;i<jsonArray.length();i++){
+                                    JSONObject jsonObject=jsonArray.getJSONObject(i);
+                                    // send with current user information
+                                    adapter.setLocalID(Integer.parseInt(jsonObject.getString("user_id")));
+                                    Log.e(TAG, "set the local ID for each adapter");
+                                }
+                            }
+                            else {
+                                Log.e(TAG,response.toString());
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+                        Log.e(TAG,error.getMessage(),error);
+                    }
+                });
+        mQueue2.add(jsonObjectRequest);
+    }
+
+
+
+
+
 
 }

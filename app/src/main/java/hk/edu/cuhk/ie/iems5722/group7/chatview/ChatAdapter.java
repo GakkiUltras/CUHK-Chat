@@ -18,6 +18,7 @@ import hk.edu.cuhk.ie.iems5722.group7.chatview.model.ChatMessage;
 public class ChatAdapter extends ArrayAdapter<ChatMessage> {
 
     private LayoutInflater mInflater;
+    private int localID;
 
     // View lookup cache
     private static class SentMsgViewHolder {
@@ -45,13 +46,24 @@ public class ChatAdapter extends ArrayAdapter<ChatMessage> {
     }
 
     public ChatAdapter(Context context, ArrayList<ChatMessage> messages) {
+
         super(context, 0, messages);
         mInflater = LayoutInflater.from(context);
+        this.localID = 115516;
+
+
+    }
+
+    public void setLocalID(int localID){
+        this.localID = localID;
+    }
+    public int getlocalID(){
+        return localID;
     }
 
     @Override
     public int getItemViewType(int position) {
-        return getItem(position).getType(1155161730);
+        return getItem(position).getType(this.localID);
     }
 
     @Override
